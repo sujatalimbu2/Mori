@@ -1,122 +1,125 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from "react";
+import "./index.css";
+
+import Navbar from "./components/Navbar";
+import Garden from "./components/Garden";
+import DailyGoals from "./components/DailyGoals";
+import StreakCard from "./components/StreakCard";
+import XPBar from "./components/XPBar";
+
+const initialGoals = [
+  {
+    id: 1,
+    icon: "📚",
+    name: "Study for 30 minutes",
+    xp: 10,
+    completed: true,
+  },
+  {
+    id: 2,
+    icon: "💧",
+    name: "Drink enough water",
+    xp: 10,
+    completed: true,
+  },
+  {
+    id: 3,
+    icon: "🏃",
+    name: "Move your body",
+    xp: 15,
+    completed: false,
+  },
+  {
+    id: 4,
+    icon: "📖",
+    name: "Read 10 pages",
+    xp: 10,
+    completed: false,
+  },
+  {
+    id: 5,
+    icon: "🧘",
+    name: "Take a quiet moment",
+    xp: 10,
+    completed: true,
+  },
+];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [goals, setGoals] = useState(initialGoals);
+  const [xp, setXp] = useState(240);
+  const [gardenLevel] = useState(4);
+
+  const toggleGoal = (id) => {
+    setGoals((currentGoals) =>
+      currentGoals.map((goal) => {
+        if (goal.id !== id) return goal;
+
+        if (!goal.completed) {
+          setXp((currentXp) => currentXp + goal.xp);
+        } else {
+          setXp((currentXp) =>
+            Math.max(0, currentXp - goal.xp)
+          );
+        }
+
+        return {
+          ...goal,
+          completed: !goal.completed,
+        };
+      })
+    );
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
+    <div className="app">
+      <Navbar xp={xp} />
+
+      <main>
+        <section className="welcome">
+          <p className="eyebrow">Tuesday, August 11</p>
+
+          <h1>
+            Good evening, <span>gardener.</span>
+          </h1>
+
+          <p className="subtitle">
+            Every little step helps your garden grow.
           </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+        </section>
 
-      <div className="ticks"></div>
+        <Garden xp={xp} />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        <DailyGoals
+          goals={goals}
+          onToggle={toggleGoal}
+        />
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+        <section className="progress-row">
+          <StreakCard streak={7} />
+
+          <XPBar
+            xp={xp}
+            level={gardenLevel}
+          />
+
+          <div className="progress-card">
+            <div className="card-icon">🌸</div>
+
+            <div>
+              <p>Plants grown</p>
+              <h3>8 plants</h3>
+              <span>2 new this week</span>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>Small habits. Beautiful growth. 🌿</p>
+      </footer>
+    </div>
+  );
 }
 
-export default App
+export default App;
