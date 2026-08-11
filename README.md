@@ -1,16 +1,66 @@
-# React + Vite
+# 🌿 Mori
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Small habits. Beautiful growth.
 
-Currently, two official plugins are available:
+Mori is a cozy habit-tracking website where every completed habit helps your virtual garden grow. 🌱
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The goal is to make building healthy and productive habits feel simple, peaceful, and rewarding.
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🌱 Create and manage daily habits
+- 🎯 Set simple daily goals
+- ✅ Complete habits and earn XP
+- 🔥 Build and maintain streaks
+- 🌿 Grow your virtual garden
+- 🔓 Unlock new plants and places
+- 🏆 Earn achievements
+- 📖 Track your progress in a garden journal
+- 🦋 Discover new elements as your garden grows
 
-## Expanding the ESLint configuration
+## 🎨 Design
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Mori uses a soft, cozy, nature-inspired visual style with:
+
+- 🌿 Green and earthy colors
+- 🌸 Cute garden illustrations
+- ✨ Gentle animations
+- 🏡 Peaceful storybook atmosphere
+- 📱 Responsive design
+
+## 🛠️ Technologies
+
+### Frontend
+
+- React
+- Vite
+- JavaScript
+- React Router
+- Framer Motion
+- Lucide React
+- CSS
+
+### Backend
+
+Coming soon.
+
+### Database
+
+Coming soon.
+
+## 🌱 How It Works
+
+```text
+Create a habit
+      ↓
+Complete the habit
+      ↓
+Earn XP ⭐
+      ↓
+Grow your plant 🌱
+      ↓
+Build your streak 🔥
+      ↓
+Unlock new plants & places 🔓
+      ↓
+Grow your garden 🌳
