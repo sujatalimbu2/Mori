@@ -1,0 +1,78 @@
+.plant-collection {
+  margin-top: 40px;
+}
+
+.collection-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.collection-heading h2 {
+  margin-top: 5px;
+}
+
+.collection-heading > span {
+  font-size: 13px;
+  color: #71816f;
+}
+
+.plants-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+}
+
+.plant-card {
+  padding: 20px 12px;
+  border-radius: 18px;
+  text-align: center;
+  border: 1px solid #dce6d5;
+  background: #fffef9;
+  transition: 0.25s ease;
+}
+
+.plant-card:hover {
+  transform: translateY(-4px);
+}
+
+.plant-card.unlocked {
+  box-shadow: 0 8px 20px rgba(70, 91, 64, 0.07);
+}
+
+.plant-card.locked {
+  opacity: 0.55;
+  background: #f4f5ef;
+}
+
+.plant-icon {
+  height: 65px;
+  display: grid;
+  place-items: center;
+  font-size: 42px;
+  margin-bottom: 8px;
+}
+
+.plant-card h3 {
+  font-size: 14px;
+  color: #405a44;
+  margin-bottom: 5px;
+}
+
+.plant-card p {
+  font-size: 11px;
+  color: #7a8b78;
+}
+
+@media (max-width: 800px) {
+  .plants-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .plants-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

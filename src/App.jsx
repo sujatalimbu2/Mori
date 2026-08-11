@@ -6,6 +6,7 @@ import Garden from "./components/Garden";
 import DailyGoals from "./components/DailyGoals";
 import StreakCard from "./components/StreakCard";
 import XPBar from "./components/XPBar";
+import PlantCollection from "./components/PlantCollection";
 
 const initialGoals = [
   {
@@ -156,6 +157,7 @@ function App() {
             </div>
           </div>
         </section>
+        <PlantCollection xp={xp} />
       </main>
 
       <footer>
