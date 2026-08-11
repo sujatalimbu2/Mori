@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import "../CSS/Garden.css";
 
 
 function Garden({ xp }) {

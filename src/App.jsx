@@ -49,26 +49,39 @@ function App() {
   const [goals, setGoals] = useState(initialGoals);
   const [xp, setXp] = useState(240);
   const [gardenLevel] = useState(4);
+  const [streak, setStreak] = useState(7);
+  const [streakCompleted, setStreakCompleted] = useState(false);
 
   const toggleGoal = (id) => {
-    setGoals((currentGoals) =>
-      currentGoals.map((goal) => {
+    setGoals((currentGoals) => {
+      const updatedGoals = currentGoals.map((goal) => {
         if (goal.id !== id) return goal;
 
         if (!goal.completed) {
           setXp((currentXp) => currentXp + goal.xp);
         } else {
-          setXp((currentXp) =>
-            Math.max(0, currentXp - goal.xp)
-          );
+          setXp((currentXp) => Math.max(0, currentXp - goal.xp));
         }
 
         return {
           ...goal,
           completed: !goal.completed,
         };
-      })
-    );
+      });
+
+      const allCompleted = updatedGoals.every((goal) => goal.completed);
+
+      if (allCompleted && !streakCompleted) {
+        setStreak((currentStreak) => currentStreak + 1);
+        setStreakCompleted(true);
+      }
+
+      if (!allCompleted) {
+        setStreakCompleted(false);
+      }
+
+      return updatedGoals;
+    });
   };
 
   return (
@@ -83,25 +96,17 @@ function App() {
             Good evening, <span>gardener.</span>
           </h1>
 
-          <p className="subtitle">
-            Every little step helps your garden grow.
-          </p>
+          <p className="subtitle">Every little step helps your garden grow.</p>
         </section>
 
         <Garden xp={xp} />
 
-        <DailyGoals
-          goals={goals}
-          onToggle={toggleGoal}
-        />
+        <DailyGoals goals={goals} onToggle={toggleGoal} />
 
         <section className="progress-row">
-          <StreakCard streak={7} />
+        <StreakCard streak={streak} />
 
-          <XPBar
-            xp={xp}
-            level={gardenLevel}
-          />
+          <XPBar xp={xp} level={gardenLevel} />
 
           <div className="progress-card">
             <div className="card-icon">🌸</div>
