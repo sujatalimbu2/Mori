@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./index.css";
 
 import Navbar from "./components/Navbar";
@@ -46,11 +46,49 @@ const initialGoals = [
 ];
 
 function App() {
-  const [goals, setGoals] = useState(initialGoals);
-  const [xp, setXp] = useState(240);
+  const [goals, setGoals] = useState(() => {
+    const savedGoals = localStorage.getItem("mori-goals");
+    return savedGoals ? JSON.parse(savedGoals) : initialGoals;
+  });
+
+  const [xp, setXp] = useState(() => {
+    const savedXP = localStorage.getItem("mori-xp");
+    return savedXP ? Number(savedXP) : 240;
+  });
+
   const [gardenLevel] = useState(4);
-  const [streak, setStreak] = useState(7);
-  const [streakCompleted, setStreakCompleted] = useState(false);
+
+  const [streak, setStreak] = useState(() => {
+    const savedStreak = localStorage.getItem("mori-streak");
+    return savedStreak ? Number(savedStreak) : 7;
+  });
+
+  const [streakCompleted, setStreakCompleted] = useState(() => {
+    const saved = localStorage.getItem("mori-streak-completed");
+    return saved === "true";
+  });
+
+  // Save goals
+  useEffect(() => {
+    localStorage.setItem("mori-goals", JSON.stringify(goals));
+  }, [goals]);
+
+  // Save XP
+  useEffect(() => {
+    localStorage.setItem("mori-xp", xp);
+  }, [xp]);
+
+  // Save streak
+  useEffect(() => {
+    localStorage.setItem("mori-streak", streak);
+  }, [streak]);
+
+  // Save streak completion
+  useEffect(() => {
+    localStorage.setItem("mori-streak-completed", streakCompleted);
+  }, [streakCompleted]);
+
+  const completedGoals = goals.filter((goal) => goal.completed).length;
 
   const toggleGoal = (id) => {
     setGoals((currentGoals) => {
@@ -104,7 +142,7 @@ function App() {
         <DailyGoals goals={goals} onToggle={toggleGoal} />
 
         <section className="progress-row">
-        <StreakCard streak={streak} />
+          <StreakCard streak={streak} />
 
           <XPBar xp={xp} level={gardenLevel} />
 

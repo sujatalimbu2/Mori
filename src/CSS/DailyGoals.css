@@ -1,0 +1,128 @@
+.habit-form-container {
+  margin-top: 16px;
+  padding: 24px;
+  border: 1px solid #dce6d5;
+  border-radius: 20px;
+  background: #fffef9;
+  box-shadow: 0 12px 30px rgba(70, 91, 64, 0.08);
+}
+
+.habit-form-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.habit-form-header h3 {
+  margin-top: 5px;
+  font-family: "Playfair Display", serif;
+  font-size: 22px;
+  color: #355c3a;
+}
+
+.close-form {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #edf3e8;
+  color: #648065;
+  cursor: pointer;
+}
+
+.habit-form-container form {
+  display: grid;
+  gap: 20px;
+}
+
+.habit-form-container label {
+  display: grid;
+  gap: 8px;
+  color: #526953;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.habit-form-container input,
+.habit-form-container select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d8e1d2;
+  border-radius: 12px;
+  outline: none;
+  background: #f9faf4;
+  color: #405a44;
+  font-family: inherit;
+}
+
+.habit-form-container input:focus,
+.habit-form-container select:focus {
+  border-color: #7da17a;
+  box-shadow: 0 0 0 3px rgba(125, 161, 122, 0.12);
+}
+
+.icon-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.icon-option {
+  width: 42px;
+  height: 42px;
+  border: 1px solid #dce5d7;
+  border-radius: 12px;
+  background: #f7f9f2;
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.icon-option:hover {
+  transform: translateY(-2px);
+}
+
+.icon-option.selected {
+  border-color: #729b70;
+  background: #e2efdc;
+  box-shadow: 0 0 0 2px #cfe1c9;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 5px;
+}
+
+.cancel-button,
+.save-habit {
+  padding: 11px 17px;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.cancel-button {
+  border: 1px solid #d8e1d2;
+  background: transparent;
+  color: #708070;
+}
+
+.save-habit {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border: none;
+  background: #6f9f72;
+  color: white;
+  font-weight: 600;
+}
+
+.save-habit:hover {
+  background: #5e8d63;
+}
