@@ -8,12 +8,7 @@
 
   border-radius: 32px;
 
-  background: linear-gradient(
-    180deg,
-    #eaf4e5 0%,
-    #dcebd7 55%,
-    #c5dfbf 100%
-  );
+  background: linear-gradient(180deg, #eaf4e5 0%, #dcebd7 55%, #c5dfbf 100%);
 
   border: 1px solid #d4e4ce;
   box-shadow: 0 18px 45px rgba(70, 95, 68, 0.1);
@@ -24,9 +19,9 @@
 .sun {
   position: absolute;
   top: 35px;
-  right: 55px;
+  right: 58px;
 
-  font-size: 42px;
+  font-size: 52px;
 }
 
 /* ☁️ Clouds */
@@ -43,16 +38,16 @@
 }
 
 .cloud-two {
-  top: 110px;
+  top: 60px;
   left: 55%;
-  font-size: 32px;
+  font-size: 52px;
 }
 
 /* 🦋 Butterfly */
 
 .butterfly {
   position: absolute;
-  top: 120px;
+  top: 160px;
   right: 25%;
   font-size: 28px;
 }
@@ -63,30 +58,28 @@
   position: absolute;
 
   left: 50%;
-  bottom: 100px;
+  bottom: 140px;
 
   transform: translateX(-50%);
 
   font-size: 110px;
   z-index: 4;
 
-  filter: drop-shadow(
-    0 8px 8px rgba(60, 90, 60, 0.15)
-  );
+  filter: drop-shadow(0 8px 8px rgba(60, 90, 60, 0.15));
 }
 
 /* 🌳 Trees */
 
 .tree {
   position: absolute;
-  bottom: 95px;
+  bottom: 120px;
 
   font-size: 75px;
   z-index: 3;
 }
 
 .tree-one {
-  left: 18%;
+  left: 19%;
 }
 
 .tree-two {
@@ -98,13 +91,13 @@
 .flowers {
   position: absolute;
 
-  bottom: 72px;
-  left: 50%;
+  bottom: 135px;
+  left: 35%;
 
-  transform: translateX(-50%);
+  transform: none;
 
   display: flex;
-  gap: 18px;
+  gap: 58px;
 
   font-size: 30px;
   z-index: 5;
@@ -115,7 +108,7 @@
 .rabbit {
   position: absolute;
 
-  bottom: 70px;
+  bottom: 40px;
   right: 12%;
 
   font-size: 48px;
@@ -143,9 +136,9 @@
 
   left: -5%;
   right: -5%;
-  bottom: -45px;
+  bottom: 0px;
 
-  height: 130px;
+  height: 160px;
 
   background: #a9ca9f;
 
@@ -156,13 +149,13 @@
 
 /* 🌱 Garden title */
 
-
 .garden-title {
   position: absolute;
-  left: 550px;
-  bottom: 22px;
+  bottom: 12px;
   z-index: 10;
+ 
   max-width: 320px;
+ 
 }
 
 .garden-title h2,
@@ -208,43 +201,23 @@
 /* 🌱 Different garden stages */
 
 .garden-seed {
-  background: linear-gradient(
-    180deg,
-    #edf5e9,
-    #dcebd7
-  );
+  background: linear-gradient(180deg, #edf5e9, #dcebd7);
 }
 
 .garden-sprout {
-  background: linear-gradient(
-    180deg,
-    #e8f4e4,
-    #d2e8cd
-  );
+  background: linear-gradient(180deg, #e8f4e4, #d2e8cd);
 }
 
 .garden-growing {
-  background: linear-gradient(
-    180deg,
-    #e4f2df,
-    #c8e0c2
-  );
+  background: linear-gradient(180deg, #e4f2df, #c8e0c2);
 }
 
 .garden-mature {
-  background: linear-gradient(
-    180deg,
-    #e7f3df,
-    #c2ddb9
-  );
+  background: linear-gradient(180deg, #e7f3df, #c2ddb9);
 }
 
 .garden-magical {
-  background: linear-gradient(
-    180deg,
-    #eaf5df,
-    #bdd9b4
-  );
+  background: linear-gradient(180deg, #eaf5df, #bdd9b4);
 }
 
 /* 📱 Mobile */

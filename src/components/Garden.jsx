@@ -29,7 +29,7 @@ function Garden({ xp }) {
     },
 
     mature: {
-      plant: "🌳✨",
+      plant: "🌳",
       message: "Your garden is flourishing!",
     },
 

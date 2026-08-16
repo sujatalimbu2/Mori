@@ -1,7 +1,7 @@
 import { Flame, Star, Sprout } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
-function Navbar({ xp }) {
+function Navbar({ xp, streak }) {
   return (
     <header className="navbar">
       <div className="logo">
@@ -25,7 +25,7 @@ function Navbar({ xp }) {
       <div className="nav-stats">
         <div className="stat">
           <Flame size={18} />
-          <span>7</span>
+          <span>{streak}</span>
         </div>
 
         <div className="stat">

@@ -146,7 +146,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="app">
-        <Navbar xp={xp} />
+        <Navbar xp={xp} streak={streak} />
 
         <main>
           <Routes>

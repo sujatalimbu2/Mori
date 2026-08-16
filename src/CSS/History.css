@@ -195,3 +195,61 @@
     flex-wrap: wrap;
   }
 }
+
+/* Journal page spacing */
+
+.history-section {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 0 60px;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24px;
+}
+
+.history-header h2 {
+  margin: 6px 0;
+  color: #405b43;
+  font-size: 32px;
+}
+
+.history-subtitle {
+  margin: 0;
+  color: #7b8978;
+  font-size: 14px;
+}
+
+.month-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.month-controls button {
+  width: 34px;
+  height: 34px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid #dce6d5;
+  border-radius: 10px;
+
+  background: #fffef9;
+  color: #607460;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.month-controls strong {
+  min-width: 130px;
+  text-align: center;
+
+  color: #405b43;
+  font-size: 14px;
+}
