@@ -27,37 +27,6 @@ Mori uses a soft, cozy, nature-inspired visual style with:
 - ✨ Gentle animations
 - 🏡 Peaceful storybook atmosphere
 - 📱 Responsive design
-
-## 🛠️ Technologies
-
-### Frontend
-
-- React
-- Vite
-- JavaScript
-- React Router
-- Framer Motion
-- Lucide React
-- CSS
-
-### Backend
-
-Coming soon.
-
-### Database
-
-Coming soon.
-
-## 🌱 How It Works
-
-```text
-Create a habit
-      ↓
-Complete the habit
-      ↓
-Earn XP ⭐
-      ↓
-Grow your plant 🌱
       ↓
 Build your streak 🔥
       ↓
