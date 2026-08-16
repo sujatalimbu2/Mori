@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import "./index.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import GardenPage from "./pages/GardenPage";
+import HabitsPage from "./pages/HabitsPage";
+import JournalPage from "./pages/JournalPage";
+import WorldPage from "./pages/WorldPage";
 
 import Navbar from "./components/Navbar";
-import Garden from "./components/Garden";
-import DailyGoals from "./components/DailyGoals";
-import StreakCard from "./components/StreakCard";
-import XPBar from "./components/XPBar";
-import PlantCollection from "./components/PlantCollection";
+
 import UnlockModal from "./components/UnlockModal";
-import History from "./components/History";
 
 import initialGoals from "./data/habits";
 import plants from "./data/plants";
@@ -48,8 +48,6 @@ function App() {
 
   const [unlockedPlant, setUnlockedPlant] = useState(null);
 
-
-
   // Save goals
   useEffect(() => {
     localStorage.setItem("mori-goals", JSON.stringify(goals));
@@ -83,7 +81,7 @@ function App() {
         completed: !goal.completed,
       };
     });
-
+  
     const xpChange = selectedGoal.completed
       ? -selectedGoal.xp
       : selectedGoal.xp;
@@ -133,52 +131,56 @@ function App() {
     }
   };
 
+  const addGoal = (name, icon, xp) => {
+      const newGoal = {
+        id: Date.now(),
+        icon,
+        name,
+        xp: Number(xp),
+        completed: false,
+      };
+
+      setGoals((currentGoals) => [...currentGoals, newGoal]);
+    };
+
   return (
-    <div className="app">
-      <Navbar xp={xp} />
+    <BrowserRouter>
+      <div className="app">
+        <Navbar xp={xp} />
 
-      <main>
-        <section className="welcome">
-          <p className="eyebrow">Tuesday, August 11</p>
+        <main>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <GardenPage xp={xp} gardenLevel={gardenLevel} streak={streak} />
+              }
+            />
 
-          <h1>
-            Good evening, <span>gardener.</span>
-          </h1>
+            <Route
+              path="/habits"
+              element={<HabitsPage goals={goals} onToggle={toggleGoal} onAddGoal={addGoal} />}
+            />
 
-          <p className="subtitle">Every little step helps your garden grow.</p>
-        </section>
+            <Route
+              path="/journal"
+              element={<JournalPage history={history} goals={goals} />}
+            />
 
-        <Garden xp={xp} />
+            <Route path="/world" element={<WorldPage />} />
+          </Routes>
+        </main>
 
-        <DailyGoals goals={goals} onToggle={toggleGoal} />
+        <footer>
+          <p>Small habits. Beautiful growth. 🌿</p>
+        </footer>
 
-        <section className="progress-row">
-          <StreakCard streak={streak} />
-
-          <XPBar xp={xp} level={gardenLevel} />
-
-          <div className="progress-card">
-            <div className="card-icon">🌸</div>
-
-            <div>
-              <p>Plants grown</p>
-              <h3>8 plants</h3>
-              <span>2 new this week</span>
-            </div>
-          </div>
-        </section>
-        <PlantCollection xp={xp} />
-        <History history={history} goals={goals} />
-      </main>
-
-      <footer>
-        <p>Small habits. Beautiful growth. 🌿</p>
-      </footer>
-      <UnlockModal
-        plant={unlockedPlant}
-        onClose={() => setUnlockedPlant(null)}
-      />
-    </div>
+        <UnlockModal
+          plant={unlockedPlant}
+          onClose={() => setUnlockedPlant(null)}
+        />
+      </div>
+    </BrowserRouter>
   );
 }
 

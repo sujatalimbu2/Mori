@@ -1,4 +1,5 @@
 import { Flame, Star, Sprout } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 function Navbar({ xp }) {
   return (
@@ -12,10 +13,13 @@ function Navbar({ xp }) {
       </div>
 
       <nav>
-        <a className="active">Garden</a>
-        <a>Habits</a>
-        <a>Journal</a>
-        <a>World</a>
+        <NavLink to="/">Garden</NavLink>
+
+        <NavLink to="/habits">Habits</NavLink>
+
+        <NavLink to="/journal">Journal</NavLink>
+
+        <NavLink to="/world">World</NavLink>
       </nav>
 
       <div className="nav-stats">

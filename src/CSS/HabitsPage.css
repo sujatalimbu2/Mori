@@ -1,0 +1,31 @@
+.habits-page {
+  margin: 0 auto;
+  padding: 40px 0 60px;
+}
+
+.habits-header {
+  margin-bottom: 28px;
+}
+
+.habits-header h1 {
+  margin: 8px 0;
+  font-size: 38px;
+  color: #405b43;
+}
+
+.habits-header p:last-child {
+  color: #7b8978;
+  font-size: 14px;
+}
+
+.habits-progress {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  border-radius: 14px;
+  background: #eef5e9;
+  color: #607460;
+  font-size: 13px;
+}
