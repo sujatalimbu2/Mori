@@ -1,0 +1,106 @@
+.unlock-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: grid;
+  place-items: center;
+
+  padding: 20px;
+
+  background: rgba(42, 62, 43, 0.35);
+  backdrop-filter: blur(6px);
+}
+
+.unlock-modal {
+  position: relative;
+
+  width: min(420px, 100%);
+  padding: 40px 30px;
+
+  text-align: center;
+
+  border: 1px solid #dce8d5;
+  border-radius: 28px;
+
+  background: #fffef8;
+
+  box-shadow: 0 25px 70px rgba(45, 70, 48, 0.2);
+}
+
+.unlock-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+
+  width: 34px;
+  height: 34px;
+
+  display: grid;
+  place-items: center;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #edf3e8;
+  color: #607460;
+
+  cursor: pointer;
+}
+
+.unlock-sparkles {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.unlock-plant {
+  font-size: 90px;
+  line-height: 1;
+  margin: 10px 0 20px;
+}
+
+.unlock-label {
+  margin-bottom: 6px;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+
+  color: #789477;
+}
+
+.unlock-modal h2 {
+  margin-bottom: 10px;
+
+  font-family: "Playfair Display", serif;
+  font-size: 30px;
+
+  color: #355c3a;
+}
+
+.unlock-message {
+  margin-bottom: 25px;
+
+  color: #71816f;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.unlock-button {
+  border: none;
+  border-radius: 13px;
+
+  padding: 12px 20px;
+
+  background: #6f9f72;
+  color: white;
+
+  font-family: inherit;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.unlock-button:hover {
+  background: #5e8d63;
+}

@@ -7,46 +7,23 @@ import DailyGoals from "./components/DailyGoals";
 import StreakCard from "./components/StreakCard";
 import XPBar from "./components/XPBar";
 import PlantCollection from "./components/PlantCollection";
+import UnlockModal from "./components/UnlockModal";
+import History from "./components/History";
 
-const initialGoals = [
-  {
-    id: 1,
-    icon: "📚",
-    name: "Study for 30 minutes",
-    xp: 10,
-    completed: true,
-  },
-  {
-    id: 2,
-    icon: "💧",
-    name: "Drink enough water",
-    xp: 10,
-    completed: true,
-  },
-  {
-    id: 3,
-    icon: "🏃",
-    name: "Move your body",
-    xp: 15,
-    completed: false,
-  },
-  {
-    id: 4,
-    icon: "📖",
-    name: "Read 10 pages",
-    xp: 10,
-    completed: false,
-  },
-  {
-    id: 5,
-    icon: "🧘",
-    name: "Take a quiet moment",
-    xp: 10,
-    completed: true,
-  },
-];
+import initialGoals from "./data/habits";
+import plants from "./data/plants";
+
+import { getTodayKey, getSavedHistory, saveHistory } from "./data/history";
 
 function App() {
+  const [history, setHistory] = useState(() => {
+    return getSavedHistory();
+  });
+
+  useEffect(() => {
+    saveHistory(history);
+  }, [history]);
+
   const [goals, setGoals] = useState(() => {
     const savedGoals = localStorage.getItem("mori-goals");
     return savedGoals ? JSON.parse(savedGoals) : initialGoals;
@@ -54,7 +31,7 @@ function App() {
 
   const [xp, setXp] = useState(() => {
     const savedXP = localStorage.getItem("mori-xp");
-    return savedXP ? Number(savedXP) : 240;
+    return savedXP ? Number(savedXP) : 290;
   });
 
   const [gardenLevel] = useState(4);
@@ -68,6 +45,10 @@ function App() {
     const saved = localStorage.getItem("mori-streak-completed");
     return saved === "true";
   });
+
+  const [unlockedPlant, setUnlockedPlant] = useState(null);
+
+
 
   // Save goals
   useEffect(() => {
@@ -89,38 +70,67 @@ function App() {
     localStorage.setItem("mori-streak-completed", streakCompleted);
   }, [streakCompleted]);
 
-  const completedGoals = goals.filter((goal) => goal.completed).length;
-
   const toggleGoal = (id) => {
-    setGoals((currentGoals) => {
-      const updatedGoals = currentGoals.map((goal) => {
-        if (goal.id !== id) return goal;
+    const selectedGoal = goals.find((goal) => goal.id === id);
 
-        if (!goal.completed) {
-          setXp((currentXp) => currentXp + goal.xp);
-        } else {
-          setXp((currentXp) => Math.max(0, currentXp - goal.xp));
-        }
+    if (!selectedGoal) return;
 
-        return {
-          ...goal,
-          completed: !goal.completed,
-        };
-      });
+    const updatedGoals = goals.map((goal) => {
+      if (goal.id !== id) return goal;
 
-      const allCompleted = updatedGoals.every((goal) => goal.completed);
-
-      if (allCompleted && !streakCompleted) {
-        setStreak((currentStreak) => currentStreak + 1);
-        setStreakCompleted(true);
-      }
-
-      if (!allCompleted) {
-        setStreakCompleted(false);
-      }
-
-      return updatedGoals;
+      return {
+        ...goal,
+        completed: !goal.completed,
+      };
     });
+
+    const xpChange = selectedGoal.completed
+      ? -selectedGoal.xp
+      : selectedGoal.xp;
+
+    const newXp = Math.max(0, xp + xpChange);
+
+    // Check if a new plant was unlocked
+    if (!selectedGoal.completed) {
+      const previouslyUnlocked =
+        Number(localStorage.getItem("mori-unlocked-xp")) || 0;
+
+      const newlyUnlocked = plants
+        .filter((plant) => newXp >= plant.xp && plant.xp > previouslyUnlocked)
+        .sort((a, b) => b.xp - a.xp)[0];
+
+      if (newlyUnlocked) {
+        setUnlockedPlant(newlyUnlocked);
+        localStorage.setItem("mori-unlocked-xp", newXp);
+      }
+    }
+
+    setGoals(updatedGoals);
+    setXp(newXp);
+
+    // Save today's completed habits
+    const today = getTodayKey();
+
+    const completedGoalIds = updatedGoals
+      .filter((goal) => goal.completed)
+      .map((goal) => goal.id);
+
+    setHistory((currentHistory) => ({
+      ...currentHistory,
+      [today]: completedGoalIds,
+    }));
+
+    // Streak
+    const allCompleted = updatedGoals.every((goal) => goal.completed);
+
+    if (allCompleted && !streakCompleted) {
+      setStreak((currentStreak) => currentStreak + 1);
+      setStreakCompleted(true);
+    }
+
+    if (!allCompleted) {
+      setStreakCompleted(false);
+    }
   };
 
   return (
@@ -158,11 +168,16 @@ function App() {
           </div>
         </section>
         <PlantCollection xp={xp} />
+        <History history={history} goals={goals} />
       </main>
 
       <footer>
         <p>Small habits. Beautiful growth. 🌿</p>
       </footer>
+      <UnlockModal
+        plant={unlockedPlant}
+        onClose={() => setUnlockedPlant(null)}
+      />
     </div>
   );
 }
