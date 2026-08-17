@@ -1,47 +1,46 @@
 .xp-card {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+  position: relative;
 }
 
 .xp-info {
   flex: 1;
+  min-width: 0;
 }
 
 .xp-info p {
-  margin: 0 0 4px;
-  font-size: 14px;
-  color: #71816f;
+  margin-bottom: 4px;
 }
 
 .xp-info h3 {
-  margin: 0 0 10px;
-  font-size: 22px;
-  color: #31553a;
+  margin-bottom: 10px;
 }
 
-/* XP progress */
+/* XP progress bar */
 
 .xp-bar {
   width: 100%;
-  height: 9px;
-  margin-bottom: 7px;
+  height: 7px;
 
-  background: #e2eadf;
-  border-radius: 20px;
+  margin-bottom: 6px;
+
   overflow: hidden;
+
+  border-radius: 999px;
+
+  background: #e7eee2;
 }
 
 .xp-bar-fill {
   height: 100%;
 
-  background: #78a878;
-  border-radius: 20px;
+  border-radius: inherit;
+
+  background: #78a274;
 
   transition: width 0.5s ease;
 }
 
-.xp-info span {
-  font-size: 13px;
-  color: #71816f;
+.xp-info > span {
+  font-size: 11px;
+  color: #879384;
 }

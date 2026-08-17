@@ -1,0 +1,61 @@
+.garden-page {
+  width: 100%;
+}
+
+.garden-intro {
+  margin: 35px 0 25px;
+}
+
+.garden-intro .section-label {
+  margin-bottom: 8px;
+}
+
+.garden-intro h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 36px;
+  font-weight: 600;
+  color: #355c3a;
+}
+
+.garden-intro h1 span {
+  color: #6f9f72;
+}
+
+.garden-intro > p:last-child {
+  margin-top: 8px;
+  color: #71816f;
+  font-size: 14px;
+}
+
+.progress-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 25px;
+}
+
+.garden-message {
+  padding: 30px 0 45px;
+  text-align: center;
+}
+
+.garden-message p {
+  margin: 0;
+  color: #71816f;
+  font-size: 13px;
+}
+
+@media (max-width: 700px) {
+  .garden-intro {
+    margin-top: 25px;
+  }
+
+  .garden-intro h1 {
+    font-size: 29px;
+  }
+
+  .progress-row {
+    grid-template-columns: 1fr;
+  }
+}

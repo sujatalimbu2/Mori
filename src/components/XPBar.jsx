@@ -1,7 +1,15 @@
 import "../CSS/XPBar.css";
+
 function XPBar({ xp, level }) {
-  const maxXP = 300;
-  const progress = Math.min((xp / maxXP) * 100, 100);
+  const milestones = [0, 100, 200, 300, 500, 750];
+
+  const currentLevelXP = milestones[level - 1] ?? 0;
+  const nextLevelXP = milestones[level] ?? currentLevelXP + 100;
+
+  const progressXP = xp - currentLevelXP;
+  const requiredXP = nextLevelXP - currentLevelXP;
+
+  const progress = Math.min(Math.max((progressXP / requiredXP) * 100, 0), 100);
 
   return (
     <div className="progress-card xp-card">
@@ -13,14 +21,11 @@ function XPBar({ xp, level }) {
         <h3>Level {level}</h3>
 
         <div className="xp-bar">
-          <div
-            className="xp-bar-fill"
-            style={{ width: `${progress}%` }}
-          />
+          <div className="xp-bar-fill" style={{ width: `${progress}%` }} />
         </div>
 
         <span>
-          {xp} / {maxXP} XP
+          {progressXP} / {requiredXP} XP
         </span>
       </div>
     </div>

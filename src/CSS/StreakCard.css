@@ -1,0 +1,15 @@
+.streak-card {
+  position: relative;
+}
+
+.streak-card .card-icon {
+  background: #fff1e5;
+}
+
+.streak-card h3 {
+  font-size: 20px;
+}
+
+.streak-card .streak-message {
+  color: #879384;
+}

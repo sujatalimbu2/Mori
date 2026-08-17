@@ -33,9 +33,9 @@ function App() {
     const savedXP = localStorage.getItem("mori-xp");
     return savedXP ? Number(savedXP) : 290;
   });
+  const milestones = [0, 100, 200, 300, 500, 750];
 
-  const [gardenLevel] = useState(4);
-
+  const gardenLevel = milestones.filter((milestone) => xp >= milestone).length;
   const [streak, setStreak] = useState(() => {
     const savedStreak = localStorage.getItem("mori-streak");
     return savedStreak ? Number(savedStreak) : 7;
@@ -81,7 +81,7 @@ function App() {
         completed: !goal.completed,
       };
     });
-  
+
     const xpChange = selectedGoal.completed
       ? -selectedGoal.xp
       : selectedGoal.xp;
@@ -95,11 +95,12 @@ function App() {
 
       const newlyUnlocked = plants
         .filter((plant) => newXp >= plant.xp && plant.xp > previouslyUnlocked)
-        .sort((a, b) => b.xp - a.xp)[0];
+        .sort((a, b) => a.xp - b.xp)[0];
 
       if (newlyUnlocked) {
         setUnlockedPlant(newlyUnlocked);
-        localStorage.setItem("mori-unlocked-xp", newXp);
+
+        localStorage.setItem("mori-unlocked-xp", newlyUnlocked.xp);
       }
     }
 
@@ -131,18 +132,9 @@ function App() {
     }
   };
 
-  const addGoal = (name, icon, xp) => {
-      const newGoal = {
-        id: Date.now(),
-        icon,
-        name,
-        xp: Number(xp),
-        completed: false,
-      };
-
-      setGoals((currentGoals) => [...currentGoals, newGoal]);
-    };
-
+  const addGoal = (newGoal) => {
+    setGoals((currentGoals) => [...currentGoals, newGoal]);
+  };
   return (
     <BrowserRouter>
       <div className="app">
@@ -159,7 +151,13 @@ function App() {
 
             <Route
               path="/habits"
-              element={<HabitsPage goals={goals} onToggle={toggleGoal} onAddGoal={addGoal} />}
+              element={
+                <HabitsPage
+                  goals={goals}
+                  onToggle={toggleGoal}
+                  onAddGoal={addGoal}
+                />
+              }
             />
 
             <Route
