@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import "../CSS/Garden.css";
 
-function Garden({ xp }) {
-  const showTulip = xp >= 100;
-  const showSunflower = xp >= 200;
-  const showBlossom = xp >= 300;
-  const showTree = xp >= 500;
-  const showHouse = xp >= 750;
+function Garden({ xp, unlockedPlants }) {
+  const showTulip = unlockedPlants.includes(2);
+  const showSunflower = unlockedPlants.includes(3);
+  const showBlossom = unlockedPlants.includes(4);
+  const showTree = unlockedPlants.includes(5);
+  const showHouse = unlockedPlants.includes(6);
 
   return (
     <motion.section
@@ -83,12 +83,8 @@ function Garden({ xp }) {
 
       {/* 🌷 Garden flowers */}
       <div className="flowers">
-
         {/* 🌱 Always available */}
-        <motion.span
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-        >
+        <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }}>
           🌱
         </motion.span>
 

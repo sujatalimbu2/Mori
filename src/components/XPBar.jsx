@@ -4,12 +4,22 @@ function XPBar({ xp, level }) {
   const milestones = [0, 100, 200, 300, 500, 750];
 
   const currentLevelXP = milestones[level - 1] ?? 0;
-  const nextLevelXP = milestones[level] ?? currentLevelXP + 100;
+  const nextLevelXP = milestones[level];
 
-  const progressXP = xp - currentLevelXP;
-  const requiredXP = nextLevelXP - currentLevelXP;
+  const isMaxLevel = level >= milestones.length;
 
-  const progress = Math.min(Math.max((progressXP / requiredXP) * 100, 0), 100);
+  const progressXP = Math.max(xp - currentLevelXP, 0);
+
+  const requiredXP = isMaxLevel
+    ? 0
+    : nextLevelXP - currentLevelXP;
+
+  const progress = isMaxLevel
+    ? 100
+    : Math.min(
+        Math.max((progressXP / requiredXP) * 100, 0),
+        100
+      );
 
   return (
     <div className="progress-card xp-card">
@@ -21,11 +31,16 @@ function XPBar({ xp, level }) {
         <h3>Level {level}</h3>
 
         <div className="xp-bar">
-          <div className="xp-bar-fill" style={{ width: `${progress}%` }} />
+          <div
+            className="xp-bar-fill"
+            style={{ width: `${progress}%` }}
+          />
         </div>
 
         <span>
-          {progressXP} / {requiredXP} XP
+          {isMaxLevel
+            ? `${xp} XP — Garden fully grown 🌳`
+            : `${progressXP} / ${requiredXP} XP`}
         </span>
       </div>
     </div>

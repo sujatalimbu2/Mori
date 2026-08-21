@@ -5,7 +5,7 @@ import XPBar from "../components/XPBar";
 import "../CSS/GardenPage.css";
 import "../CSS/Garden.css";
 
-function GardenPage({ xp, gardenLevel, streak }) {
+function GardenPage({ xp, gardenLevel, streak, unlockedPlants }) {
   return (
     <section className="garden-page">
       <div className="garden-intro">
@@ -15,20 +15,15 @@ function GardenPage({ xp, gardenLevel, streak }) {
           Good evening, <span>gardener.</span> 🌱
         </h1>
 
-        <p>
-          Every little step helps your garden grow.
-        </p>
+        <p>Every little step helps your garden grow.</p>
       </div>
 
-      <Garden xp={xp} />
+      <Garden xp={xp} unlockedPlants={unlockedPlants} />
 
       <section className="progress-row">
         <StreakCard streak={streak} />
 
-        <XPBar
-          xp={xp}
-          level={gardenLevel}
-        />
+        <XPBar xp={xp} level={gardenLevel} />
       </section>
 
       <PlantCollection xp={xp} />

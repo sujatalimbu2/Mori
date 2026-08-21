@@ -45,8 +45,19 @@ function App() {
     const saved = localStorage.getItem("mori-streak-completed");
     return saved === "true";
   });
-
   const [unlockedPlant, setUnlockedPlant] = useState(null);
+
+  const [unlockedPlants, setUnlockedPlants] = useState(() => {
+    const saved = localStorage.getItem("mori-unlocked-plants");
+    return saved ? JSON.parse(saved) : [0];
+  });
+
+  useEffect(() => {
+    localStorage.setItem(
+      "mori-unlocked-plants",
+      JSON.stringify(unlockedPlants),
+    );
+  }, [unlockedPlants]);
 
   // Save goals
   useEffect(() => {
@@ -88,17 +99,22 @@ function App() {
 
     const newXp = Math.max(0, xp + xpChange);
 
-    // Check if a new plant was unlocked
+    // Check if new plants were unlocked
     if (!selectedGoal.completed) {
-      const previouslyUnlocked =
-        Number(localStorage.getItem("mori-unlocked-xp")) || 0;
-
-      const newlyUnlocked = plants
-        .filter((plant) => newXp >= plant.xp && plant.xp > previouslyUnlocked)
-        .sort((a, b) => a.xp - b.xp)[0];
+      const newlyUnlocked = plants.filter(
+        (plant) => newXp >= plant.xp && !unlockedPlants.includes(plant.id),
+      );
 
       if (newlyUnlocked) {
         setUnlockedPlant(newlyUnlocked);
+
+        setUnlockedPlants((currentPlants) => {
+          if (currentPlants.includes(newlyUnlocked.id)) {
+            return currentPlants;
+          }
+
+          return [...currentPlants, newlyUnlocked.id];
+        });
 
         localStorage.setItem("mori-unlocked-xp", newlyUnlocked.xp);
       }
@@ -132,9 +148,18 @@ function App() {
     }
   };
 
-  const addGoal = (newGoal) => {
+  const addGoal = (name, icon, xp) => {
+    const newGoal = {
+      id: Date.now(),
+      name,
+      icon,
+      xp: Number(xp),
+      completed: false,
+    };
+
     setGoals((currentGoals) => [...currentGoals, newGoal]);
   };
+
   return (
     <BrowserRouter>
       <div className="app">
@@ -145,7 +170,12 @@ function App() {
             <Route
               path="/"
               element={
-                <GardenPage xp={xp} gardenLevel={gardenLevel} streak={streak} />
+                <GardenPage
+                  xp={xp}
+                  gardenLevel={gardenLevel}
+                  streak={streak}
+                  unlockedPlants={unlockedPlants}
+                />
               }
             />
 
