@@ -1,9 +1,9 @@
 import "../CSS/PlantCollection.css";
 import plants from "../data/plants";
 
-function PlantCollection({ xp }) {
-  const unlockedCount = plants.filter(
-    (plant) => xp >= plant.xp
+function PlantCollection({ unlockedPlants }) {
+  const unlockedCount = plants.filter((plant) =>
+    unlockedPlants.includes(plant.id)
   ).length;
 
   return (
@@ -21,7 +21,7 @@ function PlantCollection({ xp }) {
 
       <div className="plants-grid">
         {plants.map((plant) => {
-          const unlocked = xp >= plant.xp;
+          const unlocked = unlockedPlants.includes(plant.id);
 
           return (
             <div

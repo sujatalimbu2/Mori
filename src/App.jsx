@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import GardenPage from "./pages/GardenPage";
 import HabitsPage from "./pages/HabitsPage";
 import JournalPage from "./pages/JournalPage";
@@ -13,7 +14,12 @@ import UnlockModal from "./components/UnlockModal";
 import initialGoals from "./data/habits";
 import plants from "./data/plants";
 
-import { getTodayKey, getSavedHistory, saveHistory } from "./data/history";
+import {
+  getTodayKey,
+  getYesterdayKey,
+  getSavedHistory,
+  saveHistory,
+} from "./data/history";
 
 function App() {
   const [history, setHistory] = useState(() => {
@@ -26,7 +32,24 @@ function App() {
 
   const [goals, setGoals] = useState(() => {
     const savedGoals = localStorage.getItem("mori-goals");
-    return savedGoals ? JSON.parse(savedGoals) : initialGoals;
+    const savedDate = localStorage.getItem("mori-goals-date");
+    const today = getTodayKey();
+
+    if (!savedGoals) {
+      return initialGoals;
+    }
+
+    const parsedGoals = JSON.parse(savedGoals);
+
+    // New day → reset completed status
+    if (savedDate !== today) {
+      return parsedGoals.map((goal) => ({
+        ...goal,
+        completed: false,
+      }));
+    }
+
+    return parsedGoals;
   });
 
   const [xp, setXp] = useState(() => {
@@ -49,7 +72,7 @@ function App() {
 
   const [unlockedPlants, setUnlockedPlants] = useState(() => {
     const saved = localStorage.getItem("mori-unlocked-plants");
-    return saved ? JSON.parse(saved) : [0];
+    return saved ? JSON.parse(saved) : [1];
   });
 
   useEffect(() => {
@@ -62,6 +85,7 @@ function App() {
   // Save goals
   useEffect(() => {
     localStorage.setItem("mori-goals", JSON.stringify(goals));
+    localStorage.setItem("mori-goals-date", getTodayKey());
   }, [goals]);
 
   // Save XP
@@ -105,18 +129,19 @@ function App() {
         (plant) => newXp >= plant.xp && !unlockedPlants.includes(plant.id),
       );
 
-      if (newlyUnlocked) {
-        setUnlockedPlant(newlyUnlocked);
+      if (newlyUnlocked.length > 0) {
+        const firstUnlocked = newlyUnlocked[0];
 
-        setUnlockedPlants((currentPlants) => {
-          if (currentPlants.includes(newlyUnlocked.id)) {
-            return currentPlants;
-          }
+        // Show the first newly unlocked plant in the popup
+        setUnlockedPlant(firstUnlocked);
 
-          return [...currentPlants, newlyUnlocked.id];
-        });
-
-        localStorage.setItem("mori-unlocked-xp", newlyUnlocked.xp);
+        // Permanently save all newly unlocked plants
+        setUnlockedPlants((currentPlants) => [
+          ...new Set([
+            ...currentPlants,
+            ...newlyUnlocked.map((plant) => plant.id),
+          ]),
+        ]);
       }
     }
 
@@ -136,10 +161,25 @@ function App() {
     }));
 
     // Streak
+    // Streak
     const allCompleted = updatedGoals.every((goal) => goal.completed);
 
     if (allCompleted && !streakCompleted) {
-      setStreak((currentStreak) => currentStreak + 1);
+      const yesterday = getYesterdayKey();
+
+      const yesterdayCompletedIds = history[yesterday] || [];
+
+      const yesterdayWasComplete =
+        goals.length > 0 && yesterdayCompletedIds.length === goals.length;
+
+      setStreak((currentStreak) => {
+        if (yesterdayWasComplete) {
+          return currentStreak + 1;
+        }
+
+        return 1;
+      });
+
       setStreakCompleted(true);
     }
 
@@ -195,7 +235,10 @@ function App() {
               element={<JournalPage history={history} goals={goals} />}
             />
 
-            <Route path="/world" element={<WorldPage />} />
+            <Route
+              path="/world"
+              element={<WorldPage xp={xp} unlockedPlants={unlockedPlants} />}
+            />
           </Routes>
         </main>
 

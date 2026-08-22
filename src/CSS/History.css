@@ -253,3 +253,222 @@
   color: #405b43;
   font-size: 14px;
 }
+
+/* =========================
+   Selected Calendar Day
+========================= */
+
+.calendar-day {
+  border: 1px solid #edf0e9;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+}
+
+.calendar-day.selected {
+  border-color: #78a274;
+  box-shadow: 0 0 0 2px rgba(120, 162, 116, 0.25);
+  transform: translateY(-2px);
+}
+
+/* =========================
+   Day Details
+========================= */
+
+.day-details {
+  margin-top: 20px;
+  padding: 24px;
+
+  border: 1px solid #dce6d5;
+  border-radius: 22px;
+
+  background: #fffef9;
+
+  box-shadow: 0 10px 28px rgba(70, 91, 64, 0.06);
+
+  animation: journalFadeIn 0.25s ease;
+}
+
+.day-details-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+}
+
+.day-details-header h3 {
+  margin: 5px 0 0;
+
+  color: #405b43;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px;
+}
+
+.day-score {
+  min-width: 52px;
+  height: 52px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 16px;
+
+  background: #e8f2e3;
+
+  color: #527456;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* =========================
+   Goal List
+========================= */
+
+.day-goals {
+  display: grid;
+  gap: 10px;
+}
+
+.history-goal {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 13px 14px;
+
+  border: 1px solid #e7ece2;
+  border-radius: 15px;
+
+  background: #fafbf6;
+}
+
+.history-goal.completed {
+  background: #eef5e9;
+  border-color: #d7e6d0;
+}
+
+.history-goal-icon {
+  width: 38px;
+  height: 38px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 11px;
+
+  background: #edf3e8;
+
+  font-size: 19px;
+}
+
+.history-goal-info {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.history-goal-info span {
+  color: #506451;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.history-goal-info small {
+  color: #879384;
+  font-size: 11px;
+}
+
+.history-goal-status {
+  display: grid;
+  place-items: center;
+
+  color: #9aa599;
+}
+
+.history-goal.completed .history-goal-status {
+  color: #6f9f72;
+}
+
+/* =========================
+   Messages
+========================= */
+
+.perfect-day-message,
+.growing-day-message,
+.quiet-day-message,
+.empty-day-message {
+  margin-top: 16px;
+
+  padding: 13px 15px;
+
+  border-radius: 14px;
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.perfect-day-message {
+  background: #e5f1df;
+  color: #527456;
+}
+
+.growing-day-message {
+  background: #eef5e9;
+  color: #607760;
+}
+
+.quiet-day-message {
+  background: #f5f6f1;
+  color: #7b8978;
+}
+
+.empty-day-message {
+  color: #7b8978;
+  background: #fafbf6;
+}
+
+/* =========================
+   Animation
+========================= */
+
+@keyframes journalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 650px) {
+  .day-details {
+    padding: 18px;
+  }
+
+  .day-details-header h3 {
+    font-size: 20px;
+  }
+
+  .day-score {
+    min-width: 45px;
+    height: 45px;
+  }
+
+  .history-goal {
+    padding: 11px;
+  }
+}

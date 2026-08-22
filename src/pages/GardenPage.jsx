@@ -26,7 +26,7 @@ function GardenPage({ xp, gardenLevel, streak, unlockedPlants }) {
         <XPBar xp={xp} level={gardenLevel} />
       </section>
 
-      <PlantCollection xp={xp} />
+      <PlantCollection unlockedPlants={unlockedPlants} />
 
       <div className="garden-message">
         <p>Small habits. Beautiful growth. 🌿</p>
