@@ -1,8 +1,46 @@
+import { useEffect, useState } from "react";
 import { Flame, Star, Sprout } from "lucide-react";
 import { NavLink } from "react-router-dom";
-import "../CSS/Navbar.css";
+import AvatarIcon from "./AvatarIcon";
 
 function Navbar({ xp, streak }) {
+  const [avatar, setAvatar] = useState(() => {
+    const saved = localStorage.getItem("mori-profile");
+
+    if (!saved) return "sprout";
+
+    const profile = JSON.parse(saved);
+
+    return profile.avatar || "sprout";
+  });
+
+  useEffect(() => {
+    const updateAvatar = () => {
+      const saved = localStorage.getItem("mori-profile");
+
+      if (!saved) {
+        setAvatar("sprout");
+        return;
+      }
+
+      const profile = JSON.parse(saved);
+
+      setAvatar(profile.avatar || "sprout");
+    };
+
+    window.addEventListener(
+      "mori-profile-updated",
+      updateAvatar
+    );
+
+    return () => {
+      window.removeEventListener(
+        "mori-profile-updated",
+        updateAvatar
+      );
+    };
+  }, []);
+
   return (
     <header className="navbar">
       <div className="logo">
@@ -34,8 +72,15 @@ function Navbar({ xp, streak }) {
           <span>{xp}</span>
         </div>
 
-        <NavLink to="/profile" className="profile">
-          S
+        <NavLink
+          to="/profile"
+          className="profile"
+          aria-label="Open profile"
+        >
+          <AvatarIcon
+            type={avatar}
+            size={28}
+          />
         </NavLink>
       </div>
     </header>
