@@ -1,5 +1,6 @@
 import { Flame, Star, Sprout } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import "../CSS/Navbar.css";
 
 function Navbar({ xp, streak }) {
   return (
@@ -33,7 +34,9 @@ function Navbar({ xp, streak }) {
           <span>{xp}</span>
         </div>
 
-        <div className="profile">S</div>
+        <NavLink to="/profile" className="profile">
+          S
+        </NavLink>
       </div>
     </header>
   );

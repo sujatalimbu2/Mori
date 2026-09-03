@@ -2,7 +2,7 @@ import DailyGoals from "../components/DailyGoals";
 import "../App.css";
 import "../CSS/HabitsPage.css";
 
-function HabitsPage({ goals, onToggle, onAddGoal }) {
+function HabitsPage({ goals, onToggle, onAddGoal, onDeleteGoal, }) {
   const completedGoals = goals.filter((goal) => goal.completed).length;
 
   return (
@@ -27,7 +27,7 @@ function HabitsPage({ goals, onToggle, onAddGoal }) {
         </span>
       </div>
 
-      <DailyGoals goals={goals} onToggle={onToggle} onAddGoal={onAddGoal} />
+      <DailyGoals goals={goals} onToggle={onToggle} onAddGoal={onAddGoal} onDeleteGoal={onDeleteGoal} />
     </section>
   );
 }

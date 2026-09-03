@@ -6,7 +6,7 @@ import GardenPage from "./pages/GardenPage";
 import HabitsPage from "./pages/HabitsPage";
 import JournalPage from "./pages/JournalPage";
 import WorldPage from "./pages/WorldPage";
-
+import ProfilePage from "./pages/ProfilePage";
 import Navbar from "./components/Navbar";
 
 import UnlockModal from "./components/UnlockModal";
@@ -199,6 +199,9 @@ function App() {
 
     setGoals((currentGoals) => [...currentGoals, newGoal]);
   };
+  const deleteGoal = (id) => {
+    setGoals((currentGoals) => currentGoals.filter((goal) => goal.id !== id));
+  };
 
   return (
     <BrowserRouter>
@@ -226,6 +229,7 @@ function App() {
                   goals={goals}
                   onToggle={toggleGoal}
                   onAddGoal={addGoal}
+                  onDeleteGoal={deleteGoal}
                 />
               }
             />
@@ -234,7 +238,16 @@ function App() {
               path="/journal"
               element={<JournalPage history={history} goals={goals} />}
             />
-
+            <Route
+              path="/profile"
+              element={
+                <ProfilePage
+                  xp={xp}
+                  streak={streak}
+                  unlockedPlants={unlockedPlants}
+                />
+              }
+            />
             <Route
               path="/world"
               element={<WorldPage xp={xp} unlockedPlants={unlockedPlants} />}

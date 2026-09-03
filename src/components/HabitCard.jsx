@@ -1,7 +1,7 @@
-import { Check } from "lucide-react";
+import { Check, Trash2 } from "lucide-react";
 import { motion } from "framer-motion";
 
-function HabitCard({ goal, onToggle }) {
+function HabitCard({ goal, onToggle, onDelete }) {
   return (
     <motion.div
       className={`goal ${goal.completed ? "completed" : ""}`}
@@ -24,6 +24,14 @@ function HabitCard({ goal, onToggle }) {
       {goal.completed && (
         <span className="done-text">Done 🌿</span>
       )}
+
+      <button
+        className="delete-goal-button"
+        onClick={() => onDelete(goal.id)}
+        aria-label={`Delete ${goal.name}`}
+      >
+        <Trash2 size={16} />
+      </button>
     </motion.div>
   );
 }

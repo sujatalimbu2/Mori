@@ -126,3 +126,26 @@
 .save-habit:hover {
   background: #5e8d63;
 }
+
+.delete-goal-button {
+  margin-left: auto;
+  border: none;
+  background: transparent;
+  color: #a5aea3;
+  cursor: pointer;
+  padding: 7px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.delete-goal-button:hover {
+  color: #c85c5c;
+  background: #f8eeee;
+}
+
+.delete-goal-button:active {
+  transform: scale(0.9);
+}

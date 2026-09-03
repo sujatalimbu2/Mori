@@ -4,7 +4,7 @@ import HabitCard from "./HabitCard";
 import AddHabitModal from "./AddHabitModal";
 import "../CSS/DailyGoals.css";
 
-function DailyGoals({ goals, onToggle, onAddGoal }) {
+function DailyGoals({ goals, onToggle, onAddGoal, onDeleteGoal, }) {
   const [showAddHabit, setShowAddHabit] = useState(false);
 
   const completedGoals = goals.filter(
@@ -30,6 +30,7 @@ function DailyGoals({ goals, onToggle, onAddGoal }) {
             key={goal.id}
             goal={goal}
             onToggle={onToggle}
+            onDelete={onDeleteGoal}
           />
         ))}
       </div>
